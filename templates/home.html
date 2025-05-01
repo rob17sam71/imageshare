@@ -1,0 +1,28 @@
+{% extends "base.html" %}  
+{% load thumbnail %}
+
+{% block content %}  
+    <div class="row home">
+    {% for post in posts %}
+    <div class="col-sm-6 col-md-3">   
+       <div class="card my-3 mx-3 ">
+            {% thumbnail post.image "200x200" crop="center" as im %}
+        <img src="{{ post.image.url }}"width="{{ im.width }}" height="{{ im.height }}" class="mx-3 my-3">
+        {% endthumbnail %}
+            <div class="card-body px-3 ">
+                <p class="card-text px-3 fs-5 fst-italic fw-bold">{{ post.text }}</p>
+                <a href="{% url 'newapp:detail' post.id %}" class="btn btn-dark">View Image</a>
+            </div>
+      </div>
+    </div> 
+    {% empty %}
+    <div class="text-center my-5 py-5">
+      <h1>WELCOME!</h1>
+      <h2>UPLOAD AN IMAGE</h2>
+      <a href="{% url 'newapp:post' %}" class="btn btn-lg btn-success">UPLOAD</a>
+    </div>
+    
+     
+    {% endfor %}
+  </div>
+{% endblock %}
